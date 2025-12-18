@@ -10,5 +10,4 @@ public class MainDemoFil {
                         toString() -> %s
                         """, t.getName(), t.getPriority(), t));
     }
-
 }

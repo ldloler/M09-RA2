@@ -64,5 +64,5 @@ public class Futbolista extends Thread {
         }
 
         System.out.println(sb.toString());
-    }
+    } 
 }
