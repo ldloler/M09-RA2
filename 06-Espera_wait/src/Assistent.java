@@ -1,7 +1,7 @@
 import java.util.Random;
 
 public class Assistent extends Thread {
-    private float probabilitat = 50; // Probavilitat de fer la reserva sobre 100%
+    private float probabilitat = 20; // Probavilitat de fer la reserva sobre 100%
     private Esdeveniment esdeveniment;
     private Random r = new Random();
 
