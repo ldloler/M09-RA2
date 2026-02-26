@@ -11,7 +11,7 @@ public class Taula {
         comensals = new Filosof[numCmensals];
 
         for (int i = 0; i < comensals.length; i++) {
-            comensals[i] = new Filosof("fil" + i,
+            comensals[i] = new Filosof(i,
                     forquilles[i],
                     forquilles[(i+1) % forquilles.length],
                     4);
