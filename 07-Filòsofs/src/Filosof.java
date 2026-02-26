@@ -61,10 +61,15 @@ public class Filosof extends Thread {
             // intenta agafar forquilla esquerra
             boolean teEsquerra = agafarForquilla(forquillaEsquerra);
             if (!teEsquerra) {
+                // si al final no espera [0.5, 1]s i torna a probar
+                try {
+                    sleep(r.nextLong(500, 1000));
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 continue;
             }
 
-            forquillaEsquerra.setEnUs(true);
             System.out.println(
                     String.format("Filòsof: %s agafa la forquilla esquerra %d", this.getName(),
                             forquillaEsquerra.getNum()));
@@ -77,12 +82,17 @@ public class Filosof extends Thread {
                 forquillaEsquerra.setEnUs(false);
                 System.out.println(
                         String.format("Filòsof: %s deixa la forquilla esquerra(%d) i espera (dreta ocupara)",
-                                this.getName(), forquillaDreta.getNum()));
+                                this.getName(), forquillaEsquerra.getNum()));
                 gana++;
+                // si al final no espera [0.5, 1]s i torna a probar
+                try {
+                    sleep(r.nextLong(500, 1000));
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 continue;
             }
 
-            forquillaDreta.setEnUs(true);
             System.out.println(
                     String.format("Filòsof: %s agafa la forquilla dreta %d", this.getName(),
                             forquillaDreta.getNum()));
@@ -108,7 +118,7 @@ public class Filosof extends Thread {
             long now = System.currentTimeMillis();
             long espera = r.nextLong(500, 1000);
 
-            while (!teForquilla && (start - now) < espera) {
+            while (!teForquilla ^ (start - now) < espera) {
                 teForquilla = forquilla.isEnUs();
 
                 // Una mica d'espera per no saturar la cpu
@@ -119,18 +129,13 @@ public class Filosof extends Thread {
                 }
             }
 
-            // si al final no espera [0.5, 1]s i torna a probar
             if (!teForquilla) {
-                try {
-                    sleep(r.nextLong(500, 1000));
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
                 return false;
             }
 
         } else {
             teForquilla = true;
+            forquilla.setEnUs(true);
         }
 
         return teForquilla;
